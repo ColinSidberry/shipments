@@ -45,6 +45,8 @@ test("shipIt API Test", async function () {
     addr: "100 Test St",
     zip: "12345-6789"
   });
+  // the 1628 is all that was being returned instead of an object 
+  // like we thought earlier.
   expect(res).toEqual(1628);
 });
 
