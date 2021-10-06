@@ -23,31 +23,37 @@ const {
 
 
 test("shipIt API Test", async function () {
-
-  axiosMock.onPost(SHIPIT_SHIP_URL, {
+  // This simulates the data in the axios call and 
+  // prevents axios from making a real web request to the shipit server.
+  axiosMock.onPost(SHIPIT_SHIP_URL, { 
     itemId: 1000,
     name: "Test Tester",
     addr: "100 Test St",
     zip: "12345-6789", 
     key: SHIPIT_API_KEY
   })
+  // this simulates the response from the shipit server.  Receipt 
+  // and shipId are the names we got from the response object
     .reply(200, {
       "receipt": {"shipId": 1628}
     });
-
+  // calls shipProduct function from shipitApi.js with the order data 
+  // we want to send to the simulated shipit server.
   const res = await shipProduct({
     productId: 1000,
     name: "Test Tester",
     addr: "100 Test St",
     zip: "12345-6789"
   });
-  expect(res).toEqual({
-    "shipped": {
-      itemId: 1000,
-      name: 'Test Tester',
-      addr: '100 Test St',
-      zip: '12345-6789',
-      shipId: 1628
-    }
-  });
+  expect(res).toEqual(1628);
 });
+
+// {
+//   "shipped": {
+//     itemId: 1000,
+//     name: 'Test Tester',
+//     addr: '100 Test St',
+//     zip: '12345-6789',
+//     shipId: 1628
+//   }
+// }
