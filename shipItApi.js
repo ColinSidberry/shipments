@@ -29,4 +29,4 @@ async function shipProduct({ productId, name, addr, zip }) {
   return resp.data.receipt.shipId;
 }
 
-module.exports = { shipProduct };
+module.exports = { shipProduct, SHIPIT_API_KEY, SHIPIT_SHIP_URL };
